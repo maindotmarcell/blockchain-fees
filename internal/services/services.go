@@ -12,6 +12,7 @@ func GetBitcoinFee() float64 {
 		log.Printf("Error fetching Bitcoin fee: %v", err)
 		return 0
 	}
+
 	satPerVbyte := bitcoinResponseData.Estimates["30"].SatPerVbyte
 	targetTransactionSize := 140
 	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)

@@ -2,32 +2,50 @@ package app
 
 import (
 	"fmt"
+	"log"
 	"sync"
 	"time"
 
-	"github.com/maindotmarcell/blockchain-fees/internal/services"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain"
 )
 
-type App struct{}
-
-func New() *App {
-	return &App{}
+type App struct {
+	blockchains []blockchain.Blockchain
 }
 
-func (*App) FetchFees() {
+func New() *App {
+	bitcoin := blockchain.NewBitcoin("https://bitcoiner.live/api/fees/estimates/latest")
+	return &App{
+		blockchains: []blockchain.Blockchain{
+			bitcoin,
+		},
+	}
+}
+
+func (app *App) FetchFees() {
 	datetime := time.Now().Format("2006-01-02 15:04:05")
 
 	var wg sync.WaitGroup
-	var bitcoinFee float64
+	fees := make(map[string]float64)
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		bitcoinFee = services.GetBitcoinFee()
-	}()
+	for _, bc := range app.blockchains {
+		wg.Add(1)
+		go func(blockchain blockchain.Blockchain) {
+			defer wg.Done()
+			blockchainFee, err := blockchain.GetFee()
+			if err != nil {
+				log.Printf("Error fetching fee for %v: %v", blockchain.Name(), err)
+			}
+			fees[blockchain.Name()] = blockchainFee
+		}(bc)
+	}
 
 	wg.Wait()
-	fmt.Printf("Fee for Bitcoin at %v: %.8f BTC\n", datetime, bitcoinFee)
+
+	for blockchain, fee := range fees {
+		fmt.Printf("Fee for %v at %v: %.8f BTC\n", blockchain, datetime, fee)
+	}
+
 }
 
 func (*App) Run() {
