@@ -1,17 +1,15 @@
 package bitcoin
 
-import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-)
+import "github.com/maindotmarcell/blockchain-fees/internal/blockchain"
 
 type Bitcoin struct {
-	apiUrl string
+	service blockchain.Service
 }
 
-func New(apiUrl string) *Bitcoin {
-	return &Bitcoin{apiUrl: apiUrl}
+func New(apiURL string) *Bitcoin {
+	return &Bitcoin{
+		service: NewBitcoinService(apiURL),
+	}
 }
 
 func (b *Bitcoin) Name() string {
@@ -19,40 +17,5 @@ func (b *Bitcoin) Name() string {
 }
 
 func (b *Bitcoin) GetFee() (float64, error) {
-	data, err := b.FetchApi()
-	if err != nil {
-		return 0, fmt.Errorf("error fetching Bitcoin fee: %v", err)
-	}
-
-	bitcoinResponseData, ok := data.(BitcoinResponseData)
-	if !ok {
-		return 0, fmt.Errorf("invalid response data type")
-	}
-
-	satPerVbyte := bitcoinResponseData.Estimates[defaultFeeEstimate].SatPerVbyte
-	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
-	bitcoinFee := b.CalculateFee(satFeeForTargetTransaction)
-
-	return bitcoinFee, nil
-}
-
-func (b *Bitcoin) FetchApi() (interface{}, error) {
-	resp, err := http.Get(b.apiUrl)
-	if err != nil {
-		return nil, fmt.Errorf("error fetching Bitcoin fee: %v", err)
-	}
-	defer resp.Body.Close()
-
-	var data BitcoinResponseData
-	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		return nil, fmt.Errorf("error decoding response: %v", err)
-	}
-
-	return data, nil
-}
-
-func (b *Bitcoin) CalculateFee(satPerVbyte float64) float64 {
-	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
-	bitcoinFee := satFeeForTargetTransaction / satoshisPerBitcoin
-	return bitcoinFee
+	return b.service.EstimateNetworkFee()
 }
