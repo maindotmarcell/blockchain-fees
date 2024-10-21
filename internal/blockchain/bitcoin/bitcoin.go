@@ -16,6 +16,10 @@ func (b *Bitcoin) Name() string {
 	return "Bitcoin"
 }
 
+func (b *Bitcoin) CurrencySymbol() string {
+	return "BTC"
+}
+
 func (b *Bitcoin) GetFee() (float64, error) {
 	return b.service.EstimateNetworkFee()
 }

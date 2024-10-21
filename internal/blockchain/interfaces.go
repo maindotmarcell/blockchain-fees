@@ -2,6 +2,7 @@ package blockchain
 
 type Blockchain interface {
 	Name() string
+	CurrencySymbol() string
 	GetFee() (fee float64, err error)
 }
 

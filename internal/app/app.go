@@ -14,6 +14,12 @@ type App struct {
 	blockchains []blockchain.Blockchain
 }
 
+type Fee struct {
+	Blockchain     string
+	Fee            float64
+	CurrencySymbol string
+}
+
 func New() *App {
 	return &App{
 		blockchains: []blockchain.Blockchain{
@@ -26,7 +32,7 @@ func (app *App) GetFees() {
 	datetime := time.Now().Format("2006-01-02 15:04:05")
 
 	var wg sync.WaitGroup
-	fees := make(map[string]float64)
+	fees := make(map[string]Fee)
 
 	for _, bc := range app.blockchains {
 		wg.Add(1)
@@ -36,14 +42,18 @@ func (app *App) GetFees() {
 			if err != nil {
 				log.Printf("Error fetching fee for %v: %v", blockchain.Name(), err)
 			}
-			fees[blockchain.Name()] = blockchainFee
+			fees[blockchain.Name()] = Fee{
+				Blockchain:     blockchain.Name(),
+				Fee:            blockchainFee,
+				CurrencySymbol: blockchain.CurrencySymbol(),
+			}
 		}(bc)
 	}
 
 	wg.Wait()
 
-	for blockchain, fee := range fees {
-		fmt.Printf("Fee for %v at %v: %.8f BTC\n", blockchain, datetime, fee)
+	for _, fee := range fees {
+		fmt.Printf("Fee for %v at %v: %.8f %v\n", fee.Blockchain, datetime, fee.Fee, fee.CurrencySymbol)
 	}
 
 }
