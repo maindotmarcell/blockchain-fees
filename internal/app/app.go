@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain"
-	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/bitcoin"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/factory"
 )
 
 type App struct {
@@ -15,10 +15,9 @@ type App struct {
 }
 
 func New() *App {
-	bitcoin := bitcoin.New(bitcoin.URL)
 	return &App{
 		blockchains: []blockchain.Blockchain{
-			bitcoin,
+			factory.New("bitcoin"),
 		},
 	}
 }
