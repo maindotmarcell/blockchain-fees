@@ -14,12 +14,6 @@ type App struct {
 	blockchains []blockchain.Blockchain
 }
 
-type Fee struct {
-	Blockchain     string
-	Fee            float64
-	CurrencySymbol string
-}
-
 func New() *App {
 	return &App{
 		blockchains: []blockchain.Blockchain{
