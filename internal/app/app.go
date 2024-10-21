@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/bitcoin"
 )
 
 type App struct {
@@ -14,7 +15,7 @@ type App struct {
 }
 
 func New() *App {
-	bitcoin := blockchain.NewBitcoin("https://bitcoiner.live/api/fees/estimates/latest")
+	bitcoin := bitcoin.New("https://bitcoiner.live/api/fees/estimates/latest")
 	return &App{
 		blockchains: []blockchain.Blockchain{
 			bitcoin,

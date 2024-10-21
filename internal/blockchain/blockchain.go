@@ -1,7 +1,8 @@
 package blockchain
 
 type Blockchain interface {
-	GetFee() (float64, error)
-	fetchApi() (interface{}, error)
 	Name() string
+	GetFee() (fee float64, err error)
+	FetchApi() (responseData interface{}, err error)
+	CalculateFee(satPerVbyte float64) (fee float64)
 }
