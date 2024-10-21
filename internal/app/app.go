@@ -22,7 +22,7 @@ func New() *App {
 	}
 }
 
-func (app *App) FetchFees() {
+func (app *App) GetFees() {
 	datetime := time.Now().Format("2006-01-02 15:04:05")
 
 	var wg sync.WaitGroup
@@ -48,7 +48,6 @@ func (app *App) FetchFees() {
 
 }
 
-func (*App) Run() {
-	app := New()
-	app.FetchFees()
+func (app *App) Run() {
+	app.GetFees()
 }
