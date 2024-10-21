@@ -15,7 +15,7 @@ type App struct {
 }
 
 func New() *App {
-	bitcoin := bitcoin.New("https://bitcoiner.live/api/fees/estimates/latest")
+	bitcoin := bitcoin.New(bitcoin.URL)
 	return &App{
 		blockchains: []blockchain.Blockchain{
 			bitcoin,
