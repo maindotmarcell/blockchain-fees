@@ -18,6 +18,7 @@ func New() *App {
 	return &App{
 		blockchains: []blockchain.Blockchain{
 			factory.New("bitcoin"),
+			factory.New("bsc"),
 		},
 	}
 }

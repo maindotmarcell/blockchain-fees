@@ -10,9 +10,9 @@ type BitcoinService struct {
 	apiClient blockchain.APIClient
 }
 
-func NewBitcoinService(apiURL string) *BitcoinService {
+func NewBitcoinService() *BitcoinService {
 	return &BitcoinService{
-		apiClient: NewBitcoinAPIClient(apiURL),
+		apiClient: NewBitcoinAPIClient(),
 	}
 }
 
@@ -29,14 +29,17 @@ func (s *BitcoinService) EstimateNetworkFee() (float64, error) {
 
 	satPerVbyte := bitcoinResponseData.Estimates[defaultFeeEstimate].SatPerVbyte
 	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
-	bitcoinFee := s.CalculateFee(satFeeForTargetTransaction)
+	bitcoinFee, err := s.CalculateFee(satFeeForTargetTransaction)
+	if err != nil {
+		return 0, fmt.Errorf("error calculating fee: %v", err)
+	}
 
 	return bitcoinFee, nil
 }
 
-func (s *BitcoinService) CalculateFee(satPerVbyte float64) float64 {
+func (s *BitcoinService) CalculateFee(satPerVbyte float64) (float64, error) {
 	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
 	bitcoinFee := convertSatoshisToBitcoin(satFeeForTargetTransaction)
 
-	return bitcoinFee
+	return bitcoinFee, nil
 }

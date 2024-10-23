@@ -8,7 +8,7 @@ type Blockchain interface {
 
 type Service interface {
 	EstimateNetworkFee() (fee float64, err error)
-	CalculateFee(amount float64) float64
+	CalculateFee(amount float64) (fee float64, err error)
 }
 
 type APIClient interface {

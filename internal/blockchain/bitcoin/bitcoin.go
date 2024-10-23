@@ -6,9 +6,9 @@ type Bitcoin struct {
 	service blockchain.Service
 }
 
-func New(apiURL string) *Bitcoin {
+func New() *Bitcoin {
 	return &Bitcoin{
-		service: NewBitcoinService(apiURL),
+		service: NewBitcoinService(),
 	}
 }
 

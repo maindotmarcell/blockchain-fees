@@ -10,8 +10,8 @@ type BitcoinAPIClient struct {
 	apiURL string
 }
 
-func NewBitcoinAPIClient(apiURL string) *BitcoinAPIClient {
-	return &BitcoinAPIClient{apiURL: apiURL}
+func NewBitcoinAPIClient() *BitcoinAPIClient {
+	return &BitcoinAPIClient{apiURL: API_URL}
 }
 
 func (c *BitcoinAPIClient) FetchFee() (interface{}, error) {
