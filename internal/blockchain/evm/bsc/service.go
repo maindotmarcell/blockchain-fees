@@ -30,12 +30,7 @@ func (s *BscService) EstimateNetworkFee() (float64, error) {
 	// fmt.Println(bscResponseData) // DEBUG
 
 	hexFeePerGas := bscResponseData.Result
-	feePerGas, err := strconv.ParseInt(hexFeePerGas[2:], 16, 64)
-	if err != nil {
-		return 0, fmt.Errorf("error parsing priority fee: %v", err)
-	}
-
-	weiFee, err := s.CalculateFee(float64(feePerGas))
+	weiFee, err := s.calculateFee(hexFeePerGas)
 	if err != nil {
 		return 0, fmt.Errorf("error calculating fee: %v", err)
 	}
@@ -43,8 +38,12 @@ func (s *BscService) EstimateNetworkFee() (float64, error) {
 	return ConvertWeiToBnb(weiFee), nil
 }
 
-func (s *BscService) CalculateFee(feePerGas float64) (float64, error) {
+func (s *BscService) calculateFee(hexFeePerGas string) (float64, error) {
 	gasLimit := GAS_LIMIT
+	feePerGas, err := strconv.ParseInt(hexFeePerGas[2:], 16, 64)
+	if err != nil {
+		return 0, fmt.Errorf("error parsing priority fee: %v", err)
+	}
 	weiFee := float64(feePerGas) * float64(gasLimit)
 
 	return weiFee, nil

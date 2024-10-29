@@ -106,10 +106,10 @@ flowchart TD
 
 ## TODOs
 
-- [ ] Add Bsc integration
-- [ ] Add Ethereum integration
+- [x] Add Bsc integration
+- [x] Add Ethereum integration
 - [ ] Add Solana integration
-- [ ] Refactor: separate EVM and non-EVM blockchains
+- [x] Refactor: separate EVM and non-EVM blockchains
 - [ ] Add Config file for the API URL and other parameters
 - [ ] Add Docker and Docker Compose file
 - [ ] Add tests

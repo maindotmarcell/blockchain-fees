@@ -29,7 +29,7 @@ func (s *BitcoinService) EstimateNetworkFee() (float64, error) {
 
 	satPerVbyte := bitcoinResponseData.Estimates[defaultFeeEstimate].SatPerVbyte
 	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
-	bitcoinFee, err := s.CalculateFee(satFeeForTargetTransaction)
+	bitcoinFee, err := s.calculateFee(satFeeForTargetTransaction)
 	if err != nil {
 		return 0, fmt.Errorf("error calculating fee: %v", err)
 	}
@@ -37,7 +37,7 @@ func (s *BitcoinService) EstimateNetworkFee() (float64, error) {
 	return bitcoinFee, nil
 }
 
-func (s *BitcoinService) CalculateFee(satPerVbyte float64) (float64, error) {
+func (s *BitcoinService) calculateFee(satPerVbyte float64) (float64, error) {
 	satFeeForTargetTransaction := satPerVbyte * float64(targetTransactionSize)
 	bitcoinFee := convertSatoshisToBitcoin(satFeeForTargetTransaction)
 

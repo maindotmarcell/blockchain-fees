@@ -19,6 +19,7 @@ func New() *App {
 		blockchains: []blockchain.Blockchain{
 			factory.New("bitcoin"),
 			factory.New("bsc"),
+			factory.New("ethereum"),
 		},
 	}
 }
