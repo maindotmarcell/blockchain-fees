@@ -111,6 +111,7 @@ flowchart TD
 - [ ] Add Solana integration
 - [x] Refactor: separate EVM and non-EVM blockchains
 - [ ] Add Config file for the API URL and other parameters
+- [ ] Add scheduled task to fetch fees every 10 seconds
 - [ ] Add Docker and Docker Compose file
 - [ ] Add tests
 - [ ] Add Github Actions workflow
