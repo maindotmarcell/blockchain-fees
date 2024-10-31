@@ -20,6 +20,7 @@ func New() *App {
 			factory.New("bitcoin"),
 			factory.New("bsc"),
 			factory.New("ethereum"),
+			factory.New("solana"),
 		},
 	}
 }

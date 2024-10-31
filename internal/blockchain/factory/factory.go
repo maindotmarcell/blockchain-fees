@@ -5,6 +5,7 @@ import (
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/bitcoin"
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm/bsc"
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm/ethereum"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/solana"
 )
 
 func New(blockchainName string) blockchain.Blockchain {
@@ -15,6 +16,8 @@ func New(blockchainName string) blockchain.Blockchain {
 		return ethereum.New()
 	case "bsc":
 		return bsc.New()
+	case "solana":
+		return solana.New()
 	default:
 		return nil
 	}

@@ -1,5 +1,5 @@
 package ethereum
 
-import "github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm"
+import "github.com/maindotmarcell/blockchain-fees/internal/blockchain"
 
-type EthResponseData = evm.JsonRpcResponseData
+type EthResponseData = blockchain.JsonRpcResponseData

@@ -1,4 +1,4 @@
-package evm
+package blockchain
 
 type JsonRpcResponseData struct {
 	Jsonrpc string `json:"jsonrpc"`

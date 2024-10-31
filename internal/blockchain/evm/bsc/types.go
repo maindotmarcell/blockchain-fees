@@ -1,5 +1,5 @@
 package bsc
 
-import "github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm"
+import "github.com/maindotmarcell/blockchain-fees/internal/blockchain"
 
-type BscResponseData = evm.JsonRpcResponseData
+type BscResponseData = blockchain.JsonRpcResponseData
