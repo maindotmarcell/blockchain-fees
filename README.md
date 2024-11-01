@@ -112,4 +112,6 @@ flowchart TD
 - [x] Refactor: separate EVM and non-EVM blockchains
 - [x] Add scheduled task to fetch fees every 10 seconds
 - [x] Add Docker and Docker Compose file
-- [ ] Refactor
+- [ ] Refactor: use generics for the factory
+  - [ ] wei per eth and lamport per sol vars
+  - [ ] extract all duplicate code
