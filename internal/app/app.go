@@ -25,7 +25,7 @@ func New() *App {
 	}
 }
 
-func (app *App) GetFees() {
+func (app *App) getFees() {
 	datetime := time.Now().Format("2006-01-02 15:04:05")
 
 	var wg sync.WaitGroup
@@ -55,6 +55,17 @@ func (app *App) GetFees() {
 
 }
 
+func (app *App) getFeesPeriodically() {
+	app.getFees()
+
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		app.getFees()
+	}
+}
+
 func (app *App) Run() {
-	app.GetFees()
+	app.getFeesPeriodically()
 }

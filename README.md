@@ -110,6 +110,6 @@ flowchart TD
 - [x] Add Ethereum integration
 - [x] Add Solana integration
 - [x] Refactor: separate EVM and non-EVM blockchains
-- [ ] Add scheduled task to fetch fees every 10 seconds
-- [ ] Add Docker and Docker Compose file
+- [x] Add scheduled task to fetch fees every 10 seconds
+- [x] Add Docker and Docker Compose file
 - [ ] Refactor
