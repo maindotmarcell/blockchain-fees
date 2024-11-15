@@ -2,10 +2,10 @@ package factory
 
 import (
 	"github.com/maindotmarcell/blockchain-fees/internal/blockchain"
-	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/bitcoin"
-	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm/bsc"
-	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/evm/ethereum"
-	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/solana"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/chains/bitcoin"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/chains/bsc"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/chains/ethereum"
+	"github.com/maindotmarcell/blockchain-fees/internal/blockchain/chains/solana"
 )
 
 func New(blockchainName string) blockchain.Blockchain {
