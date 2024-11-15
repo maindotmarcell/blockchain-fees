@@ -28,67 +28,6 @@ To integrate a new blockchain, you need to implement the `Blockchain` interface 
 
 See the `bitcoin` package for an example.
 
-## Current architecture
-
-```
-internal/
-  blockchain/
-    interfaces.go
-    bitcoin/
-      bitcoin.go
-      service.go
-      api_client.go
-      constants.go
-      types.go
-    ethereum/
-      ethereum.go
-      service.go
-      api_client.go
-      constants.go
-      types.go
-    factory/
-      factory.go
-```
-
-## Planned architecture (with EVM separation)
-
-```
-blockchain-fees-go
-├── cmd
-│   └── fee_tracker
-│       └── main.go
-├── internal
-│   ├── app
-│   │   └── app.go
-│   └── blockchain
-│       ├── evm
-│       │   ├── interfaces.go
-│       │   ├── utils.go
-│       │   └── ethereum
-│       │       ├── api_client.go
-│       │       ├── constants.go
-│       │       ├── ethereum.go
-│       │       ├── service.go
-│       │       ├── types.go
-│       │       └── utils.go
-│       ├── non_evm
-│       │   └── bitcoin
-│       │       ├── api_client.go
-│       │       ├── bitcoin.go
-│       │       ├── constants.go
-│       │       ├── service.go
-│       │       ├── types.go
-│       │       └── utils.go
-│       ├── factory
-│       │   └── factory.go
-│       └── interfaces.go
-├── Dockerfile
-├── docker-compose.yaml
-├── go.mod
-├── Makefile
-└── README.md
-```
-
 ## Architecture Flowchart
 
 ```mermaid
