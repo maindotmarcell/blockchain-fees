@@ -1,6 +1,6 @@
 # Blockchain Fee Estimator
 
-This is a simple tool to estimate the fee for a transaction on a blockchain. It currently supports Bitcoin.
+This is a simple tool to estimate the fee for a transaction on a blockchain. It currently supports Bitcoin, BSC, Ethereum and Solana.
 
 ## Usage
 
